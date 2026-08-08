@@ -1,0 +1,138 @@
+{
+  "blend": "hann",
+  "stride": 16,
+  "window": [
+    1,
+    31
+  ],
+  "reverse": false,
+  "d_arm1": 0.7480179577801127,
+  "rows": [
+    {
+      "label": "identity (no remap)",
+      "slope": 1.0,
+      "intercept": 0.0,
+      "provenance": "control: arm 1 restated",
+      "delta5": 0.7480179577801127,
+      "rho": 0.4567861684398101,
+      "reduction": 0.0
+    },
+    {
+      "label": "intercept only",
+      "slope": 1.0,
+      "intercept": 104.02,
+      "provenance": "control: shift without scale",
+      "delta5": 0.8486977908559884,
+      "rho": 0.2599038473339757,
+      "reduction": -0.13459547598918944
+    },
+    {
+      "label": "slope only",
+      "slope": 0.6165,
+      "intercept": 0.0,
+      "provenance": "control: scale without shift",
+      "delta5": 0.6308367282983391,
+      "rho": 0.5477202629872696,
+      "reduction": 0.15665563675707922
+    },
+    {
+      "label": "render fit (original)",
+      "slope": 0.6165,
+      "intercept": 104.02,
+      "provenance": "in-sample: fitted on these renders",
+      "delta5": 0.05375306258816537,
+      "rho": 0.9990359531391475,
+      "reduction": 0.9281393420718295
+    },
+    {
+      "label": "volume aggregate",
+      "slope": 0.6154,
+      "intercept": 104.32,
+      "provenance": "OUT-OF-SAMPLE: 5 chunks, 10.42 Mvoxel",
+      "delta5": 0.06209802616988247,
+      "rho": 0.9991150116952643,
+      "reduction": 0.9169832414796961
+    },
+    {
+      "label": "volume chunk 60/26/35",
+      "slope": 0.6154,
+      "intercept": 104.32,
+      "provenance": "out-of-sample: single chunk",
+      "delta5": 0.06209802616988247,
+      "rho": 0.9991150116952643,
+      "reduction": 0.9169832414796961
+    },
+    {
+      "label": "volume chunk 90/26/34",
+      "slope": 0.6151,
+      "intercept": 104.34,
+      "provenance": "out-of-sample: single chunk",
+      "delta5": 0.06209802616988247,
+      "rho": 0.9991150116952643,
+      "reduction": 0.9169832414796961
+    },
+    {
+      "label": "volume chunk 100/27/36",
+      "slope": 0.6155,
+      "intercept": 104.31,
+      "provenance": "out-of-sample: single chunk",
+      "delta5": 0.06209802616988247,
+      "rho": 0.9991150116952643,
+      "reduction": 0.9169832414796961
+    },
+    {
+      "label": "slope -5%",
+      "slope": 0.5856,
+      "intercept": 104.32,
+      "provenance": "detuned",
+      "delta5": 0.17018009214016472,
+      "rho": 0.9900722849392162,
+      "reduction": 0.7724919697847804
+    },
+    {
+      "label": "slope +5%",
+      "slope": 0.6462,
+      "intercept": 104.32,
+      "provenance": "detuned",
+      "delta5": 0.17132891524241367,
+      "rho": 0.9839273112187251,
+      "reduction": 0.7709561468940328
+    },
+    {
+      "label": "intercept -10",
+      "slope": 0.6154,
+      "intercept": 94.32,
+      "provenance": "detuned",
+      "delta5": 0.27528126850450685,
+      "rho": 0.977812888552845,
+      "reduction": 0.6319857489498554
+    },
+    {
+      "label": "intercept +10",
+      "slope": 0.6154,
+      "intercept": 114.32,
+      "provenance": "detuned",
+      "delta5": 0.38015201136995613,
+      "rho": 0.9224574946696461,
+      "reduction": 0.49178758689412966
+    },
+    {
+      "label": "slope -20%",
+      "slope": 0.4923,
+      "intercept": 104.32,
+      "provenance": "detuned hard",
+      "delta5": 0.44814113189675586,
+      "rho": 0.8783839951550309,
+      "reduction": 0.4008952228544072
+    },
+    {
+      "label": "intercept -40",
+      "slope": 0.6154,
+      "intercept": 64.32,
+      "provenance": "detuned hard",
+      "delta5": 0.4801716141001855,
+      "rho": 0.8985292753494436,
+      "reduction": 0.35807475060466837
+    }
+  ]
+}
