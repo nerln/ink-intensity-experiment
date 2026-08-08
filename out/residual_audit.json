@@ -1,0 +1,14 @@
+{
+  "blend": "hann",
+  "q": 0.05,
+  "delta": 0.05375306258816537,
+  "k": 13107,
+  "changed_pixels": 724,
+  "identical_fraction_of_selection": 0.9723811703669795,
+  "lost_columns_fraction": 0.019138336181640625,
+  "changes_on_lost_columns": 31,
+  "lost_enrichment": 2.2372728303877314,
+  "spearman_input_vs_output_residual": -0.004884818633315497,
+  "changed_within_1pct_of_cut": 1.0,
+  "changed_median_rank": 0.9500024795626814
+}
