@@ -25,9 +25,9 @@ from pathlib import Path
 
 import numpy as np
 
-ROOT = Path("/Volumes/AppsAndFiles/dev/op6-causal")
+ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, "/Volumes/AppsAndFiles/dev/inkfloor")
+sys.path.insert(0, str(ROOT.parent / "inkfloor"))
 
 from infer import InkEngine  # noqa: E402
 from inkfloor import metrics  # noqa: E402

@@ -1,18 +1,24 @@
+from __future__ import annotations
+from pathlib import Path
 """Tutti i segmenti pubblicati di PHerc0172 contro la copertura delle due derivazioni.
 
 Per ogni segmento: quanti chunk tocca la superficie spessa (33 slice lungo la normale),
 quanti di quelli mancano in B, e a che profondita' dentro il guscio memorizzato da A si
 spinge la superficie.
 """
-from __future__ import annotations
 
 import json
 import sys
 
 import numpy as np
 
-sys.path.insert(0, "/Volumes/AppsAndFiles/dev/op6-causal/coverage")
+sys.path.insert(0, f"{_REPO}/coverage")
 from mesh_chunks import NX, NY, NZ, chunk_lin, densify, load_mesh, normals  # noqa: E402
+
+_HERE = str(Path(__file__).resolve().parent)
+_REPO = str(Path(__file__).resolve().parent.parent)
+_INK = str(Path(__file__).resolve().parent.parent.parent / "inkfloor")
+
 
 HALF = 16
 DENS = 2
@@ -61,12 +67,12 @@ def analyse(d: str, ga, gb, depth, half=HALF, dens=DENS):
 
 
 def main():
-    cov = np.load("/Volumes/AppsAndFiles/dev/op6-causal/coverage/coverage.npz")
+    cov = np.load(f"{_HERE}/coverage.npz")
     ga = cov["grid_a"].reshape(-1)
     gb = cov["grid_b"].reshape(-1)
-    depth = np.load("/Volumes/AppsAndFiles/dev/op6-causal/coverage/depth.npz")["depth"].reshape(-1)
-    dirs = json.load(open("/Volumes/AppsAndFiles/dev/op6-causal/coverage/mesh_dirs.json"))
-    root = "/Volumes/AppsAndFiles/dev/inkfloor/cache/"
+    depth = np.load(f"{_HERE}/depth.npz")["depth"].reshape(-1)
+    dirs = json.load(open(f"{_HERE}/mesh_dirs.json"))
+    root = f"{_INK}/cache/"
     out = []
     for i, d in enumerate(dirs, 1):
         try:
@@ -75,7 +81,7 @@ def main():
             r = dict(seg=d.split("/segments/")[1].split("/")[0], error=str(e))
         out.append(r)
         print(f"[{i}/{len(dirs)}] {json.dumps(r)}", flush=True)
-    json.dump(out, open("/Volumes/AppsAndFiles/dev/op6-causal/coverage/all_segments.json", "w"), indent=1)
+    json.dump(out, open(f"{_HERE}/all_segments.json", "w"), indent=1)
     tot_t = sum(r.get("touched", 0) for r in out)
     tot_m = sum(r.get("only_A", 0) for r in out)
     tot_n = sum(r.get("neither", 0) for r in out)

@@ -29,7 +29,7 @@ from pathlib import Path
 
 import numpy as np
 
-ROOT = Path("/Volumes/AppsAndFiles/dev/op6-causal")
+ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 from infer import InkEngine  # noqa: E402

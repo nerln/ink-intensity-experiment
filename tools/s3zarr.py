@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 
 HOST = "https://vesuvius-challenge-open-data.s3.amazonaws.com"
-CACHE = Path("/Volumes/AppsAndFiles/dev/op6-causal/cache")
+CACHE = Path(__file__).resolve().parent.parent / "cache"
 
 def _get(key: str) -> bytes:
     dst = CACHE / key

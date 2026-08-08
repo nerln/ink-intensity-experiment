@@ -1,3 +1,5 @@
+from __future__ import annotations
+from pathlib import Path
 """Quali chunk attraversa la superficie renderizzata di un segmento, e quali mancano in B.
 
 La superficie ha spessore: il render campiona lungo la normale per ~261 um, cioe' ~33
@@ -6,7 +8,6 @@ campo di posizioni della tifxyz.
 
 Uso: mesh_chunks.py <dir tifxyz> [--dens N] [--out prefix]
 """
-from __future__ import annotations
 
 import argparse
 import json
@@ -14,6 +15,11 @@ import sys
 
 import numpy as np
 import tifffile
+
+_HERE = str(Path(__file__).resolve().parent)
+_REPO = str(Path(__file__).resolve().parent.parent)
+_INK = str(Path(__file__).resolve().parent.parent.parent / "inkfloor")
+
 
 CH = 128
 SHAPE_A = (21000, 6700, 9100)
@@ -92,7 +98,7 @@ def main():
     ap.add_argument("tifxyz")
     ap.add_argument("--dens", type=int, default=1)
     ap.add_argument("--out", default=None)
-    ap.add_argument("--cov", default="/Volumes/AppsAndFiles/dev/op6-causal/coverage/coverage.npz")
+    ap.add_argument("--cov", default=f"{_HERE}/coverage.npz")
     a = ap.parse_args()
 
     cov = np.load(a.cov)

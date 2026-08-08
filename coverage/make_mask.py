@@ -1,3 +1,5 @@
+from __future__ import annotations
+from pathlib import Path
 """Maschera 2D (671x747) per il segmento dell'esperimento, alla risoluzione nativa della mesh.
 
 Campi salvati in segment_mask.npz:
@@ -8,23 +10,27 @@ Campi salvati in segment_mask.npz:
   margin_chunk int16  distanza di Chebyshev, in chunk da 128 voxel, dal chunk centrale del
                       punto al piu' vicino chunk presente in A e assente in B (-1 se non valido)
 """
-from __future__ import annotations
 
 import sys
 
 import numpy as np
 
-sys.path.insert(0, "/Volumes/AppsAndFiles/dev/op6-causal/coverage")
+sys.path.insert(0, f"{_REPO}/coverage")
 from mesh_chunks import CH, NX, NY, NZ, chunk_lin, load_mesh, normals  # noqa: E402
 
-SEG = ("/Volumes/AppsAndFiles/dev/inkfloor/cache/PHerc0172/segments/"
+_HERE = str(Path(__file__).resolve().parent)
+_REPO = str(Path(__file__).resolve().parent.parent)
+_INK = str(Path(__file__).resolve().parent.parent.parent / "inkfloor")
+
+
+SEG = (f"{_INK}/cache/PHerc0172/segments/"
        "20251107110950-w064_20251107110950052_flatboi/mesh/"
        "20251107110950-on-20241024131838-7.91um.tifxyz")
 HALF = 16
 
 
 def main():
-    cov = np.load("/Volumes/AppsAndFiles/dev/op6-causal/coverage/coverage.npz")
+    cov = np.load(f"{_HERE}/coverage.npz")
     ga3, gb3 = cov["grid_a"], cov["grid_b"]
     ga, gb = ga3.reshape(-1), gb3.reshape(-1)
     onlyA = np.array(np.nonzero(ga3 & ~gb3)).T.astype(np.int32)
@@ -58,7 +64,7 @@ def main():
     margin[~valid] = -1
 
     np.savez_compressed(
-        "/Volumes/AppsAndFiles/dev/op6-causal/coverage/segment_mask.npz",
+        f"{_HERE}/segment_mask.npz",
         valid=valid, ok_both=ok, hit_missing=hit, margin_chunk=margin,
         segment="20251107110950-w064_20251107110950052_flatboi",
         half_voxels=HALF, chunk=CH,

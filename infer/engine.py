@@ -1,3 +1,5 @@
+from __future__ import annotations
+import os
 """Sliding-window ink-detection inference engine.
 
 Takes a rendered surface-volume ROI and returns a per-pixel ink probability map
@@ -32,7 +34,6 @@ Determinism
 dropout. Verified by ``tests/test_determinism.py``.
 """
 
-from __future__ import annotations
 
 import time
 from dataclasses import dataclass, field
@@ -46,14 +47,19 @@ import torch.nn.functional as F
 from .model import InkDetectionModel, load_model
 from .preprocess import preprocess
 
+# Where the 1.7 GB of checkpoints live. Relative to the repository so a clean checkout
+# works; overridable because they do not belong on a small system disk.
+_WEIGHTS = os.environ.get("OP6_WEIGHTS") or str(Path(__file__).resolve().parent.parent / "weights")
+
+
 DEFAULT_CHECKPOINT = (
-    "/Volumes/AppsAndFiles/dev/op6-causal/weights/hf/hub/"
+    f"{_WEIGHTS}/hf/hub/"
     "models--scrollprize--PHerc.1667-iteration-0/snapshots/"
     "06c306449b39df42c745608ceade243498d24243"
 )
 
 TIMESFORMER_CHECKPOINT = (
-    "/Volumes/AppsAndFiles/dev/op6-causal/weights/hf/hub/"
+    f"{_WEIGHTS}/hf/hub/"
     "models--scrollprize--timesformer_scroll5_july_retreat/snapshots/"
     "5b714296b256b8f993ce69e8e57aea585125d782"
 )

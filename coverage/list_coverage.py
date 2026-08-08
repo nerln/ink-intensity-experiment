@@ -1,10 +1,11 @@
+from __future__ import annotations
+from pathlib import Path
 """Elenca via LIST S3 tutti i chunk memorizzati al livello 0 delle due derivazioni.
 
 Non sonda: la LIST restituisce la copertura ESATTA e completa, non un campione.
 Output: coverage.npz con due bitmap booleane sulla griglia di chunk (nz, ny, nx)
 e le somme delle dimensioni per chunk (utile per distinguere chunk pieni da tappi).
 """
-from __future__ import annotations
 
 import sys
 import time
@@ -12,8 +13,13 @@ from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
 
-sys.path.insert(0, "/Volumes/AppsAndFiles/dev/inkfloor")
+sys.path.insert(0, _INK)
 from inkfloor import cache  # noqa: E402
+
+_HERE = str(Path(__file__).resolve().parent)
+_REPO = str(Path(__file__).resolve().parent.parent)
+_INK = str(Path(__file__).resolve().parent.parent.parent / "inkfloor")
+
 
 VOL_A = "PHerc0172/volumes/20241024131838-7.910um-53keV-masked.zarr/0"
 VOL_B = "PHerc0172/volumes/20241024131839-7.910um-53keV-masked.zarr/0"
@@ -66,7 +72,7 @@ def main():
     gb, sb = coverage(VOL_B, -(-SHAPE_B[0] // CH))
     print(f"B: {gb.sum()} chunks, {time.time()-t1:.0f}s", flush=True)
     np.savez_compressed(
-        "/Volumes/AppsAndFiles/dev/op6-causal/coverage/coverage.npz",
+        f"{_HERE}/coverage.npz",
         grid_a=ga, grid_b=gb, size_a=sa, size_b=sb,
         shape_a=np.array(SHAPE_A), shape_b=np.array(SHAPE_B), chunk=CH,
     )

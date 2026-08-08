@@ -36,7 +36,7 @@ from pathlib import Path
 
 import numpy as np
 
-ROOT = Path("/Volumes/AppsAndFiles/dev/op6-causal")
+ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 from calibrate import chance_iou, iou_at_q, load_published_ink, spearman, window  # noqa: E402
