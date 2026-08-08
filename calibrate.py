@@ -171,6 +171,13 @@ def main() -> None:
     )
     print(f"\n  written: {OUT / 'calibration.json'}")
 
+    # Exit non-zero on failure, so that "do not report them" is enforced by the
+    # process rather than left to whoever is reading the output. Printing a
+    # warning and exiting 0 is not a gate; an adversarial review pointed out that
+    # this was described as one before it behaved like one.
+    if not passed:
+        raise SystemExit(1)
+
 
 if __name__ == "__main__":
     main()

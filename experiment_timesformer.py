@@ -42,8 +42,16 @@ OUT.mkdir(exist_ok=True)
 WIN_START, WIN_COUNT, REVERSE = 1, 30, False
 STRIDE = 16  # matches the published run's "tile64-stride16"
 
-# Intensity relation measured voxel-by-voxel on the two renders: A = m*B + c
+# Intensity relation measured voxel-by-voxel on the two renders: A = m*B + c.
+# fit_affine.py is the procedure that produces these, with a held-out check;
+# sweep_affine.py reruns arm 2 with coefficients fitted off these renders.
 SLOPE, INTERCEPT = 0.6165, 104.02
+
+# Below this, the run has not reproduced the published map from the checkpoint that
+# made it, and nothing causal it prints afterwards is worth reading. Enforced, not
+# advised: an adversarial review pointed out that this file described itself as
+# gated while only ever printing the number.
+PASS_MARK = 0.285
 
 
 def remap_b_to_a(b: np.ndarray) -> np.ndarray:
@@ -109,7 +117,13 @@ def main() -> None:
 
         cal = iou_at_q(inkA, pub, 0.05)
         print(f"  calibration re-check, A vs published: IoU@5% = {cal:.3f} "
-              f"(pass mark 0.285, chance {chance_iou(0.05):.3f})")
+              f"(pass mark {PASS_MARK}, chance {chance_iou(0.05):.3f})")
+        if cal < PASS_MARK:
+            raise SystemExit(
+                f"calibration failed for blend={blend}: IoU@5% {cal:.3f} < {PASS_MARK}. "
+                "This configuration does not reproduce the published map, so the arms "
+                "below would not mean anything. Refusing to report them."
+            )
         print(f"  means: A {inkA.mean():.3f}  B {inkB.mean():.3f}  remap(B) {inkBm.mean():.3f}")
 
         print(f"\n  {'comparison':<38} " + " ".join(f"{'D@'+str(int(q*100))+'%':>8}" for q in qs) + f" {'rho':>8}")
