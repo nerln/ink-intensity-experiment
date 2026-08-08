@@ -39,7 +39,7 @@ from infer import InkEngine  # noqa: E402
 R = ROOT / "renders"
 OUT = ROOT / "out"
 
-WIN_START, WIN_COUNT, REVERSE = 1, 30, False
+WIN_START, WIN_COUNT, REVERSE = 1, 26, False
 STRIDE = 16
 BLEND = "hann"
 
@@ -81,7 +81,7 @@ def main() -> None:
     d_arm1 = delta_at(inkA, inkB, 0.05)
     print(f"reference points, blend={BLEND}, stride={STRIDE}")
     print(f"  ARM 1  A vs B (no remap)      delta@5% = {d_arm1:.4f}")
-    print(f"  the committed arm 2 reported  delta@5% = 0.054\n")
+    print(f"  the committed arm 2 reported  delta@5% = 0.0445\n")
 
     engine = InkEngine(
         model_kind="timesformer",

@@ -48,9 +48,18 @@ CROP_X, CROP_Y, CROP_W, CROP_H = 7168, 6400, 512, 512
 #   chance(q) = q / (2 - q)   ->  0.005 @1%, 0.026 @5%, 0.111 @20%
 # --------------------------------------------------------------------------
 def topk_mask(values: np.ndarray, q: float) -> np.ndarray:
+    """The top q fraction by value. Partitions on the values, never on their negation.
+
+    `argpartition(-flat, ...)` looks equivalent and is not: on an unsigned dtype the unary
+    minus wraps, so 0 negates to 0 and stays the smallest, while every non-zero value
+    negates to something large. On uint8 maps that ranks the zeros first and inverts the
+    selection. Predictions arrive here as float32 so the published numbers never hit it, but
+    a helper that silently inverts on a whole dtype family is a trap for the next caller.
+    """
     flat = values.reshape(-1)
     k = max(1, int(round(q * flat.size)))
-    idx = np.argpartition(-flat, k - 1)[:k]
+    k = min(k, flat.size)
+    idx = np.argpartition(flat, flat.size - k)[flat.size - k:]
     out = np.zeros(flat.size, dtype=bool)
     out[idx] = True
     return out.reshape(values.shape)
@@ -107,11 +116,25 @@ def main() -> None:
     print(f"pass mark @5%: 0.285 (agreement between the two published maps)\n")
 
     depth = render.shape[0]
-    # Windows to try. The repo's center-crop rule is start = (available - n) // 2.
-    candidates = []
-    for count in (33, 30, 26):
-        start = (depth - count) // 2
-        candidates.append((start, count))
+    # Every start for every count, not only the centred one.
+    #
+    # The first version of this swept `start = (depth - count) // 2` alone, which is a line
+    # through a two-dimensional space, and the reference window was not on it: for count 26
+    # it only ever tried [3:29). The window the published pipeline actually uses is [1:27),
+    # which scores 0.449 against the published map where the centred [3:29) scores 0.395 and
+    # the [1:31) this file used to choose scores 0.420. An adversarial review found it by
+    # reading the source instead of trusting the sweep.
+    #
+    # `inference_timesformer.py` defaults to start_idx=17 with CFG.in_chans=26 and builds
+    # `range(start_idx, start_idx + in_chans)`, so the reference stack is legacy layers 17
+    # through 42. A 33-slice render centred on the surface spans offsets -16..+16, i.e. legacy
+    # 16..48, so 17..42 lands on local indices 1..26. That is [1:27), and it is now a named
+    # candidate rather than something the sweep has to stumble on.
+    candidates = [
+        (start, count)
+        for count in (33, 30, 26)
+        for start in range(0, depth - count + 1)
+    ]
     candidates = sorted(set(candidates))
 
     print("=== sweep: z-window x reverse, scored against the published map ===")

@@ -36,7 +36,7 @@ from calibrate import window  # noqa: E402
 R = ROOT / "renders"
 OUT = ROOT / "out"
 
-WIN_START, WIN_COUNT, REVERSE = 1, 30, False
+WIN_START, WIN_COUNT, REVERSE = 1, 26, False
 
 # Fitted off these renders, on five volume chunks sampled across the scan (10.42 Mvoxel).
 VOLUME_AGGREGATE = (0.6154, 104.32)

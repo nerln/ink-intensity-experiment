@@ -1,0 +1,22 @@
+{
+  "window": [
+    1,
+    27
+  ],
+  "calibration_iou5": 0.44908789386401327,
+  "d_AB": 0.7573947667804323,
+  "arms": {
+    "in campione (fit sui render)": {
+      "slope": 0.6165,
+      "intercept": 104.02,
+      "delta": 0.04446102200671387,
+      "reduction": 0.9412974264455103
+    },
+    "fuori campione (chunk di volume)": {
+      "slope": 0.6154,
+      "intercept": 104.32,
+      "delta": 0.04519015659955261,
+      "reduction": 0.9403347387893252
+    }
+  }
+}

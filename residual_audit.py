@@ -38,7 +38,7 @@ from calibrate import window  # noqa: E402
 R = ROOT / "renders"
 OUT = ROOT / "out"
 
-WIN_START, WIN_COUNT, REVERSE = 1, 30, False
+WIN_START, WIN_COUNT, REVERSE = 1, 26, False
 BLEND = "hann"
 Q = 0.05
 

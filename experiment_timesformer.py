@@ -5,10 +5,18 @@
 of the two published predictions on this segment, so unlike
 `PHerc.1667-iteration-0` it is not being applied out of distribution here.
 
-Configuration is not assumed. It was recovered by `calibrate.py`, which swept
-the z-window and the layer order against the published map from this same
-checkpoint on this same derivation, and passed at IoU@5% = 0.420 against a
-pass mark of 0.285 (chance 0.026).
+Configuration is not assumed. The z-window is the one the reference pipeline
+uses: `inference_timesformer.py` defaults to start_idx=17 with in_chans=26 and
+builds range(17, 43), so the stack is legacy layers 17 through 42. On a 33-slice
+render centred on the surface (offsets -16..+16, legacy 16..48) that is local
+[1:27). `calibrate.py` scores it against the published map from this same
+checkpoint on this same derivation at IoU@5% = 0.449, against a pass mark of
+0.285 and chance 0.026, and it is the best of every window the sweep tries.
+
+An earlier version used [1:31) with 30 frames and scored 0.420. That window was
+chosen by a sweep that only tried the centred start for each frame count, so it
+never tested [1:27) at all. An adversarial review found the reference default by
+reading the source rather than trusting the sweep.
 
 Three arms:
   control    A vs A                  must be exactly 0
@@ -38,8 +46,8 @@ R = ROOT / "renders"
 OUT = ROOT / "out"
 OUT.mkdir(exist_ok=True)
 
-# Recovered by calibrate.py, not assumed.
-WIN_START, WIN_COUNT, REVERSE = 1, 30, False
+# The reference window: legacy layers 17-42 -> local [1:27). See the module docstring.
+WIN_START, WIN_COUNT, REVERSE = 1, 26, False
 STRIDE = 16  # matches the published run's "tile64-stride16"
 
 # Intensity relation measured voxel-by-voxel on the two renders: A = m*B + c.
@@ -63,10 +71,12 @@ def remap_b_to_a(b: np.ndarray) -> np.ndarray:
 def delta_at(a: np.ndarray, b: np.ndarray, q: float, valid: np.ndarray | None = None) -> float:
     """1 - IoU@q. 0 means identical ranking of the top q fraction."""
     if valid is not None:
-        a, b = a.copy(), b.copy()
-        # Push excluded pixels below every retained one so they cannot enter top-k.
-        a[~valid] = -1.0
-        b[~valid] = -1.0
+        # Select the valid pixels rather than pushing the others below the floor. Both keep
+        # invalid pixels out of the top-k, but the old way still computed k from the full
+        # array, so the budget was drawn from a population the comparison had excluded. With
+        # a = [4,3,2,1], b = [3,4,2,1], valid = [T,T,F,F] and q = 0.5 it reported 0.000 where
+        # the valid-only answer is 1.000.
+        a, b = a[valid], b[valid]
     return 1.0 - iou_at_q(a, b, q)
 
 
