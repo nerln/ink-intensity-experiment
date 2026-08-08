@@ -1,0 +1,79 @@
+{
+ "convention": {
+  "start": 0,
+  "reverse": false,
+  "rho": -0.07684423161408037,
+  "spread": 0.18340392105972447,
+  "all": [
+   {
+    "start": 0,
+    "reverse": false,
+    "rho": -0.07684423161408037
+   },
+   {
+    "start": 0,
+    "reverse": true,
+    "rho": -0.22545949500544493
+   },
+   {
+    "start": 1,
+    "reverse": false,
+    "rho": -0.09555224169140257
+   },
+   {
+    "start": 1,
+    "reverse": true,
+    "rho": -0.26024815267380486
+   }
+  ]
+ },
+ "rows": [
+  {
+   "label": "controllo: A contro A (deve essere 0)",
+   "deltas": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "spearman": 0.9999999999999998
+  },
+  {
+   "label": "BRACCIO 1: A contro B (osservato)",
+   "deltas": [
+    1.0,
+    0.7215177526336325,
+    0.7491590122867708
+   ],
+   "spearman": 0.2715371578393933
+  },
+  {
+   "label": "BRACCIO 2: A contro B rimappato",
+   "deltas": [
+    0.030803906836964656,
+    0.023375056552556228,
+    0.05111144152851088
+   ],
+   "spearman": 0.9993203470355223
+  },
+  {
+   "label": "riferimento: B contro B rimappato",
+   "deltas": [
+    1.0,
+    0.7146219476316564,
+    0.7380949515614659
+   ],
+   "spearman": 0.2873067278269908
+  }
+ ],
+ "qs": [
+  0.01,
+  0.05,
+  0.2
+ ],
+ "lost_voxels": 8747,
+ "lost_frac": 0.0005381799513293851,
+ "remap": {
+  "slope": 0.6165,
+  "intercept": 104.02
+ }
+}

@@ -1,0 +1,18 @@
+# Model weights: 1.7 GB, fetched from Hugging Face on demand.
+weights/
+# Rendered surface volumes and cached S3 payload: regenerable, large.
+renders/
+cache/
+probe/
+mesh/
+vol38/
+vol39/
+# Outputs are committed selectively (the JSON reports), not the ink maps.
+out/*.npz
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.DS_Store
+comment-*.md
+*.log

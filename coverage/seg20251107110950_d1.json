@@ -1,0 +1,25 @@
+{
+  "tifxyz": "/Volumes/AppsAndFiles/dev/inkfloor/cache/PHerc0172/segments/20251107110950-w064_20251107110950052_flatboi/mesh/20251107110950-on-20241024131838-7.91um.tifxyz",
+  "dens": 1,
+  "grid": [
+    671,
+    747
+  ],
+  "grid_dens": [
+    671,
+    747
+  ],
+  "valid_points": 458670,
+  "chunks_touched": 18096,
+  "touched_present_A": 18096,
+  "touched_present_B": 18096,
+  "touched_only_A": 0,
+  "touched_only_B": 0,
+  "touched_neither": 0,
+  "frac_missing_of_A": 0.0,
+  "points_valid_dens": 458670,
+  "points_touching_A": 458670,
+  "points_hit_missing": 0,
+  "frac_points_hit_missing": 0.0,
+  "normals_ok": 455857
+}

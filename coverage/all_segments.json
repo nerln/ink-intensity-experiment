@@ -1,0 +1,956 @@
+[
+ {
+  "seg": "20250917143559-w062_20250917143559205_flatboi",
+  "grid": [
+   630,
+   687
+  ],
+  "valid": 386732,
+  "touched": 15630,
+  "in_A": 15630,
+  "in_B": 15630,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 2,
+  "n_depth_le3": 241,
+  "points_hit_missing": 0,
+  "points_in_A": 1540188
+ },
+ {
+  "seg": "20250926112011-w078_20250926112011918_flatboi",
+  "grid": [
+   685,
+   625
+  ],
+  "valid": 353232,
+  "touched": 13417,
+  "in_A": 13415,
+  "in_B": 13385,
+  "only_A": 30,
+  "only_B": 0,
+  "neither": 2,
+  "min_depth": 0,
+  "n_depth_le3": 504,
+  "points_hit_missing": 2428,
+  "points_in_A": 1406076
+ },
+ {
+  "seg": "20250926113336-w079_20250926113336891_flatboi",
+  "grid": [
+   726,
+   819
+  ],
+  "valid": 342284,
+  "touched": 13110,
+  "in_A": 13104,
+  "in_B": 13084,
+  "only_A": 25,
+  "only_B": 5,
+  "neither": 1,
+  "min_depth": 0,
+  "n_depth_le3": 1336,
+  "points_hit_missing": 1305,
+  "points_in_A": 1361016
+ },
+ {
+  "seg": "20250926114310-w080_20250926114310705_flatboi",
+  "grid": [
+   624,
+   571
+  ],
+  "valid": 271932,
+  "touched": 10329,
+  "in_A": 10329,
+  "in_B": 10302,
+  "only_A": 27,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 401,
+  "points_hit_missing": 839,
+  "points_in_A": 1081152
+ },
+ {
+  "seg": "20250926122938-w082_20250926122938619_flatboi",
+  "grid": [
+   716,
+   576
+  ],
+  "valid": 307433,
+  "touched": 10897,
+  "in_A": 10886,
+  "in_B": 10787,
+  "only_A": 99,
+  "only_B": 0,
+  "neither": 11,
+  "min_depth": 0,
+  "n_depth_le3": 570,
+  "points_hit_missing": 10769,
+  "points_in_A": 1222308
+ },
+ {
+  "seg": "20250926132117-w083_20250926132117595_flatboi",
+  "grid": [
+   697,
+   581
+  ],
+  "valid": 310322,
+  "touched": 11280,
+  "in_A": 11280,
+  "in_B": 11260,
+  "only_A": 20,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 361,
+  "points_hit_missing": 854,
+  "points_in_A": 1234568
+ },
+ {
+  "seg": "20250926145427-w084_20250926145427439_flatboi",
+  "grid": [
+   483,
+   601
+  ],
+  "valid": 202705,
+  "touched": 8130,
+  "in_A": 8127,
+  "in_B": 8088,
+  "only_A": 41,
+  "only_B": 2,
+  "neither": 1,
+  "min_depth": 0,
+  "n_depth_le3": 359,
+  "points_hit_missing": 2742,
+  "points_in_A": 805338
+ },
+ {
+  "seg": "20250926150345-w086_20250926150345176_flatboi",
+  "grid": [
+   623,
+   485
+  ],
+  "valid": 261658,
+  "touched": 10721,
+  "in_A": 10721,
+  "in_B": 10721,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 310,
+  "points_hit_missing": 0,
+  "points_in_A": 1041016
+ },
+ {
+  "seg": "20250926153406-w088_20250926153406704_flatboi",
+  "grid": [
+   728,
+   625
+  ],
+  "valid": 286424,
+  "touched": 11620,
+  "in_A": 11615,
+  "in_B": 11608,
+  "only_A": 10,
+  "only_B": 3,
+  "neither": 2,
+  "min_depth": 0,
+  "n_depth_le3": 644,
+  "points_hit_missing": 627,
+  "points_in_A": 1132873
+ },
+ {
+  "seg": "20251106133152-w077_20251106133152767_flatboi",
+  "grid": [
+   797,
+   590
+  ],
+  "valid": 331629,
+  "touched": 13042,
+  "in_A": 13022,
+  "in_B": 13008,
+  "only_A": 14,
+  "only_B": 0,
+  "neither": 20,
+  "min_depth": 0,
+  "n_depth_le3": 375,
+  "points_hit_missing": 416,
+  "points_in_A": 1319142
+ },
+ {
+  "seg": "20251106170358-w076_20251106170358232_flatboi",
+  "grid": [
+   673,
+   608
+  ],
+  "valid": 348784,
+  "touched": 13413,
+  "in_A": 13411,
+  "in_B": 13405,
+  "only_A": 7,
+  "only_B": 1,
+  "neither": 1,
+  "min_depth": 0,
+  "n_depth_le3": 424,
+  "points_hit_missing": 49,
+  "points_in_A": 1388364
+ },
+ {
+  "seg": "20251107063327-w063_20251107063327215_flatboi",
+  "grid": [
+   642,
+   704
+  ],
+  "valid": 410652,
+  "touched": 16649,
+  "in_A": 16649,
+  "in_B": 16649,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 327,
+  "points_hit_missing": 0,
+  "points_in_A": 1636224
+ },
+ {
+  "seg": "20251107110950-w064_20251107110950052_flatboi",
+  "grid": [
+   671,
+   747
+  ],
+  "valid": 458670,
+  "touched": 18507,
+  "in_A": 18507,
+  "in_B": 18507,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 406,
+  "points_hit_missing": 0,
+  "points_in_A": 1828044
+ },
+ {
+  "seg": "20251107175958-w061_20251107175958270_flatboi",
+  "grid": [
+   602,
+   634
+  ],
+  "valid": 343002,
+  "touched": 14075,
+  "in_A": 14075,
+  "in_B": 14075,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 2,
+  "n_depth_le3": 138,
+  "points_hit_missing": 0,
+  "points_in_A": 1366048
+ },
+ {
+  "seg": "20251109232817-w065_20251109232817724_flatboi",
+  "grid": [
+   759,
+   743
+  ],
+  "valid": 454656,
+  "touched": 18407,
+  "in_A": 18395,
+  "in_B": 18392,
+  "only_A": 3,
+  "only_B": 0,
+  "neither": 12,
+  "min_depth": 0,
+  "n_depth_le3": 570,
+  "points_hit_missing": 82,
+  "points_in_A": 1811222
+ },
+ {
+  "seg": "20251110110112-w066_20251110110112608_flatboi",
+  "grid": [
+   837,
+   749
+  ],
+  "valid": 453056,
+  "touched": 18157,
+  "in_A": 18157,
+  "in_B": 18157,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 653,
+  "points_hit_missing": 0,
+  "points_in_A": 1805176
+ },
+ {
+  "seg": "20251110135146-w085_20251110135146457_flatboi",
+  "grid": [
+   632,
+   484
+  ],
+  "valid": 261600,
+  "touched": 10461,
+  "in_A": 10461,
+  "in_B": 10459,
+  "only_A": 2,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 317,
+  "points_hit_missing": 42,
+  "points_in_A": 1040812
+ },
+ {
+  "seg": "20251110135803-w067_20251110135803677_flatboi",
+  "grid": [
+   657,
+   743
+  ],
+  "valid": 450360,
+  "touched": 18147,
+  "in_A": 18147,
+  "in_B": 18147,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 788,
+  "points_hit_missing": 0,
+  "points_in_A": 1795020
+ },
+ {
+  "seg": "20251111010954-w068_20251111010954408_flatboi",
+  "grid": [
+   654,
+   746
+  ],
+  "valid": 449691,
+  "touched": 18112,
+  "in_A": 18112,
+  "in_B": 18112,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 944,
+  "points_hit_missing": 0,
+  "points_in_A": 1792380
+ },
+ {
+  "seg": "20251111151836-w069_20251111151836406_flatboi",
+  "grid": [
+   818,
+   873
+  ],
+  "valid": 562164,
+  "touched": 20398,
+  "in_A": 20398,
+  "in_B": 20394,
+  "only_A": 4,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 1360,
+  "points_hit_missing": 75,
+  "points_in_A": 2240700
+ },
+ {
+  "seg": "20251111210734-w070_20251111210734722_flatboi",
+  "grid": [
+   646,
+   749
+  ],
+  "valid": 444896,
+  "touched": 17905,
+  "in_A": 17905,
+  "in_B": 17905,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 1263,
+  "points_hit_missing": 0,
+  "points_in_A": 1773280
+ },
+ {
+  "seg": "20251112000002-w087_20251112000002214_flatboi",
+  "grid": [
+   621,
+   481
+  ],
+  "valid": 258030,
+  "touched": 10657,
+  "in_A": 10657,
+  "in_B": 10657,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 2,
+  "n_depth_le3": 339,
+  "points_hit_missing": 0,
+  "points_in_A": 1026660
+ },
+ {
+  "seg": "20251112163527-w071_20251112163527854_flatboi",
+  "grid": [
+   645,
+   754
+  ],
+  "valid": 443534,
+  "touched": 17756,
+  "in_A": 17755,
+  "in_B": 17755,
+  "only_A": 1,
+  "only_B": 1,
+  "neither": 0,
+  "min_depth": 0,
+  "n_depth_le3": 1470,
+  "points_hit_missing": 7,
+  "points_in_A": 1767852
+ },
+ {
+  "seg": "20251113021010-w072_20251113021010674_flatboi",
+  "grid": [
+   638,
+   754
+  ],
+  "valid": 439565,
+  "touched": 17597,
+  "in_A": 17596,
+  "in_B": 17595,
+  "only_A": 2,
+  "only_B": 1,
+  "neither": 0,
+  "min_depth": 0,
+  "n_depth_le3": 1682,
+  "points_hit_missing": 15,
+  "points_in_A": 1752040
+ },
+ {
+  "seg": "20251113130119-w073_20251113130119516_flatboi",
+  "grid": [
+   636,
+   757
+  ],
+  "valid": 438307,
+  "touched": 17539,
+  "in_A": 17538,
+  "in_B": 17539,
+  "only_A": 0,
+  "only_B": 1,
+  "neither": 0,
+  "min_depth": 0,
+  "n_depth_le3": 1865,
+  "points_hit_missing": 0,
+  "points_in_A": 1746983
+ },
+ {
+  "seg": "20251113152136-w074_20251113152136889_flatboi",
+  "grid": [
+   634,
+   752
+  ],
+  "valid": 435176,
+  "touched": 17465,
+  "in_A": 17463,
+  "in_B": 17458,
+  "only_A": 7,
+  "only_B": 2,
+  "neither": 0,
+  "min_depth": 0,
+  "n_depth_le3": 2074,
+  "points_hit_missing": 79,
+  "points_in_A": 1734525
+ },
+ {
+  "seg": "20251113204233-w075_20251113204233755_flatboi",
+  "grid": [
+   629,
+   751
+  ],
+  "valid": 431527,
+  "touched": 17394,
+  "in_A": 17390,
+  "in_B": 17378,
+  "only_A": 15,
+  "only_B": 3,
+  "neither": 1,
+  "min_depth": 0,
+  "n_depth_le3": 2311,
+  "points_hit_missing": 479,
+  "points_in_A": 1719998
+ },
+ {
+  "seg": "20251114202035-w081_20251114202035261_flatboi",
+  "grid": [
+   588,
+   571
+  ],
+  "valid": 253617,
+  "touched": 10149,
+  "in_A": 10149,
+  "in_B": 10148,
+  "only_A": 1,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 274,
+  "points_hit_missing": 12,
+  "points_in_A": 1008528
+ },
+ {
+  "seg": "20251115002740-auto_grown_20251115002740308_0_flatboi",
+  "grid": [
+   555,
+   2460
+  ],
+  "valid": 1256541,
+  "touched": 12003,
+  "in_A": 12003,
+  "in_B": 12003,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 6,
+  "n_depth_le3": 0,
+  "points_hit_missing": 0,
+  "points_in_A": 5009428
+ },
+ {
+  "seg": "20251115002741-auto_grown_20251115002740308_1_flatboi",
+  "grid": [
+   629,
+   2815
+  ],
+  "valid": 1592534,
+  "touched": 15160,
+  "in_A": 15160,
+  "in_B": 15160,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 6,
+  "n_depth_le3": 0,
+  "points_hit_missing": 0,
+  "points_in_A": 6257546
+ },
+ {
+  "seg": "20251115002742-auto_grown_20251115002740308_2_flatboi",
+  "grid": [
+   619,
+   2790
+  ],
+  "valid": 1571179,
+  "touched": 15886,
+  "in_A": 15886,
+  "in_B": 15886,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 4,
+  "n_depth_le3": 0,
+  "points_hit_missing": 0,
+  "points_in_A": 6262996
+ },
+ {
+  "seg": "20251115002743-auto_grown_20251115002740308_3_flatboi",
+  "grid": [
+   648,
+   2878
+  ],
+  "valid": 1658342,
+  "touched": 17915,
+  "in_A": 17915,
+  "in_B": 17915,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 5,
+  "n_depth_le3": 0,
+  "points_hit_missing": 0,
+  "points_in_A": 6616392
+ },
+ {
+  "seg": "20251115002744-auto_grown_20251115002740308_4_flatboi",
+  "grid": [
+   800,
+   2927
+  ],
+  "valid": 1795795,
+  "touched": 21584,
+  "in_A": 21578,
+  "in_B": 21584,
+  "only_A": 0,
+  "only_B": 6,
+  "neither": 0,
+  "min_depth": 0,
+  "n_depth_le3": 46,
+  "points_hit_missing": 0,
+  "points_in_A": 7161011
+ },
+ {
+  "seg": "20251115002745-auto_grown_20251115002740308_5_flatboi",
+  "grid": [
+   637,
+   3065
+  ],
+  "valid": 1772184,
+  "touched": 20390,
+  "in_A": 20390,
+  "in_B": 20390,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 3,
+  "n_depth_le3": 3,
+  "points_hit_missing": 0,
+  "points_in_A": 7071342
+ },
+ {
+  "seg": "20251115002746-auto_grown_20251115002740308_6_flatboi",
+  "grid": [
+   558,
+   2777
+  ],
+  "valid": 1299107,
+  "touched": 17994,
+  "in_A": 17994,
+  "in_B": 17994,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 5,
+  "n_depth_le3": 0,
+  "points_hit_missing": 0,
+  "points_in_A": 5177308
+ },
+ {
+  "seg": "20251115002747-auto_grown_20251115002740308_7_flatboi",
+  "grid": [
+   612,
+   2817
+  ],
+  "valid": 1518450,
+  "touched": 20925,
+  "in_A": 20925,
+  "in_B": 20925,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 5,
+  "n_depth_le3": 0,
+  "points_hit_missing": 0,
+  "points_in_A": 6056522
+ },
+ {
+  "seg": "20251115002748-auto_grown_20251115002740308_8_flatboi",
+  "grid": [
+   637,
+   1867
+  ],
+  "valid": 1096315,
+  "touched": 18896,
+  "in_A": 18896,
+  "in_B": 18896,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 3,
+  "n_depth_le3": 2,
+  "points_hit_missing": 0,
+  "points_in_A": 4374396
+ },
+ {
+  "seg": "20251203230500-w089_20251203230500465_flatboi",
+  "grid": [
+   646,
+   611
+  ],
+  "valid": 282469,
+  "touched": 11429,
+  "in_A": 11426,
+  "in_B": 11424,
+  "only_A": 5,
+  "only_B": 3,
+  "neither": 0,
+  "min_depth": 0,
+  "n_depth_le3": 681,
+  "points_hit_missing": 207,
+  "points_in_A": 1123500
+ },
+ {
+  "seg": "20251204060522-w090_20251204060522416_flatboi",
+  "grid": [
+   643,
+   609
+  ],
+  "valid": 282607,
+  "touched": 11462,
+  "in_A": 11459,
+  "in_B": 11454,
+  "only_A": 8,
+  "only_B": 3,
+  "neither": 0,
+  "min_depth": 0,
+  "n_depth_le3": 787,
+  "points_hit_missing": 274,
+  "points_in_A": 1124260
+ },
+ {
+  "seg": "20251204071911-w091_20251204071911070_flatboi",
+  "grid": [
+   639,
+   608
+  ],
+  "valid": 281585,
+  "touched": 11476,
+  "in_A": 11473,
+  "in_B": 11465,
+  "only_A": 11,
+  "only_B": 3,
+  "neither": 0,
+  "min_depth": 0,
+  "n_depth_le3": 891,
+  "points_hit_missing": 472,
+  "points_in_A": 1120224
+ },
+ {
+  "seg": "20251204101314-w092_20251204101314959_flatboi",
+  "grid": [
+   677,
+   628
+  ],
+  "valid": 288018,
+  "touched": 11676,
+  "in_A": 11670,
+  "in_B": 11644,
+  "only_A": 29,
+  "only_B": 3,
+  "neither": 3,
+  "min_depth": 0,
+  "n_depth_le3": 1057,
+  "points_hit_missing": 1785,
+  "points_in_A": 1145239
+ },
+ {
+  "seg": "20251204192708-w093_20251204192708445_flatboi",
+  "grid": [
+   753,
+   865
+  ],
+  "valid": 296910,
+  "touched": 11888,
+  "in_A": 11879,
+  "in_B": 11837,
+  "only_A": 43,
+  "only_B": 1,
+  "neither": 8,
+  "min_depth": 0,
+  "n_depth_le3": 1197,
+  "points_hit_missing": 2107,
+  "points_in_A": 1177759
+ },
+ {
+  "seg": "20251205115859-w094_20251205115859448_flatboi",
+  "grid": [
+   563,
+   520
+  ],
+  "valid": 209432,
+  "touched": 8662,
+  "in_A": 8662,
+  "in_B": 8662,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 1,
+  "n_depth_le3": 513,
+  "points_hit_missing": 0,
+  "points_in_A": 832796
+ },
+ {
+  "seg": "20251206184729-w095_20251206184729906_flatboi",
+  "grid": [
+   724,
+   571
+  ],
+  "valid": 235449,
+  "touched": 9143,
+  "in_A": 9142,
+  "in_B": 9109,
+  "only_A": 34,
+  "only_B": 1,
+  "neither": 0,
+  "min_depth": 0,
+  "n_depth_le3": 651,
+  "points_hit_missing": 3833,
+  "points_in_A": 934507
+ },
+ {
+  "seg": "20251207123912-w060_20251207123912611_flatboi",
+  "grid": [
+   550,
+   578
+  ],
+  "valid": 286051,
+  "touched": 11728,
+  "in_A": 11728,
+  "in_B": 11728,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 2,
+  "n_depth_le3": 69,
+  "points_hit_missing": 0,
+  "points_in_A": 1138756
+ },
+ {
+  "seg": "20251210142414-w059_20251210142414060_flatboi",
+  "grid": [
+   476,
+   660
+  ],
+  "valid": 286784,
+  "touched": 11657,
+  "in_A": 11657,
+  "in_B": 11657,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 2,
+  "n_depth_le3": 36,
+  "points_hit_missing": 0,
+  "points_in_A": 1142120
+ },
+ {
+  "seg": "20251210153304-w058_20251210153304503_flatboi",
+  "grid": [
+   546,
+   660
+  ],
+  "valid": 328660,
+  "touched": 13391,
+  "in_A": 13391,
+  "in_B": 13391,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 2,
+  "n_depth_le3": 29,
+  "points_hit_missing": 0,
+  "points_in_A": 1309084
+ },
+ {
+  "seg": "20251210160810-w057_20251210160810301_flatboi",
+  "grid": [
+   544,
+   651
+  ],
+  "valid": 323024,
+  "touched": 13168,
+  "in_A": 13168,
+  "in_B": 13168,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 3,
+  "n_depth_le3": 11,
+  "points_hit_missing": 0,
+  "points_in_A": 1286648
+ },
+ {
+  "seg": "20251211095724-w056_20251211095724922_flatboi",
+  "grid": [
+   533,
+   645
+  ],
+  "valid": 316953,
+  "touched": 12982,
+  "in_A": 12982,
+  "in_B": 12982,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 3,
+  "n_depth_le3": 8,
+  "points_hit_missing": 0,
+  "points_in_A": 1262512
+ },
+ {
+  "seg": "20251211111451-w055_20251211111451620_flatboi",
+  "grid": [
+   537,
+   635
+  ],
+  "valid": 310242,
+  "touched": 12787,
+  "in_A": 12787,
+  "in_B": 12787,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 3,
+  "n_depth_le3": 3,
+  "points_hit_missing": 0,
+  "points_in_A": 1235628
+ },
+ {
+  "seg": "20251211135303-w054_20251211135303394_flatboi",
+  "grid": [
+   530,
+   626
+  ],
+  "valid": 302272,
+  "touched": 12447,
+  "in_A": 12447,
+  "in_B": 12447,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 3,
+  "n_depth_le3": 1,
+  "points_hit_missing": 0,
+  "points_in_A": 1203848
+ },
+ {
+  "seg": "20251211152543-w053_20251211152543204_flatboi",
+  "grid": [
+   530,
+   617
+  ],
+  "valid": 296191,
+  "touched": 12206,
+  "in_A": 12206,
+  "in_B": 12206,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 4,
+  "n_depth_le3": 0,
+  "points_hit_missing": 0,
+  "points_in_A": 1179508
+ },
+ {
+  "seg": "20251212105627-w052_20251212105627148_flatboi",
+  "grid": [
+   529,
+   610
+  ],
+  "valid": 290786,
+  "touched": 11960,
+  "in_A": 11960,
+  "in_B": 11960,
+  "only_A": 0,
+  "only_B": 0,
+  "neither": 0,
+  "min_depth": 4,
+  "n_depth_le3": 0,
+  "points_hit_missing": 0,
+  "points_in_A": 1157992
+ }
+]
