@@ -1,14 +1,32 @@
 {
   "blend": "hann",
   "q": 0.05,
-  "delta": 0.05375306258816537,
-  "k": 13107,
-  "changed_pixels": 724,
-  "identical_fraction_of_selection": 0.9723811703669795,
-  "lost_columns_fraction": 0.019138336181640625,
-  "changes_on_lost_columns": 31,
-  "lost_enrichment": 2.2372728303877314,
-  "spearman_input_vs_output_residual": -0.004884818633315497,
-  "changed_within_1pct_of_cut": 1.0,
-  "changed_median_rank": 0.9500024795626814
+  "runs": [
+    {
+      "label": "in-sample (render fit)",
+      "slope": 0.6165,
+      "intercept": 104.02,
+      "changed_pixels": 724,
+      "identical_fraction_of_selection": 0.9723811703669795,
+      "lost_columns_fraction": 0.019138336181640625,
+      "changes_on_lost_columns": 31,
+      "lost_enrichment": 2.2372728303877314,
+      "spearman_input_vs_output_residual": -0.004884818633315497,
+      "changed_within_1pct_of_cut": 1.0,
+      "changed_median_rank": 0.9500024795626814
+    },
+    {
+      "label": "held out (volume chunks)",
+      "slope": 0.6154,
+      "intercept": 104.32,
+      "changed_pixels": 840,
+      "identical_fraction_of_selection": 0.9679560540169375,
+      "lost_columns_fraction": 0.019138336181640625,
+      "changes_on_lost_columns": 39,
+      "lost_enrichment": 2.4259460690794157,
+      "spearman_input_vs_output_residual": 0.008207932070228609,
+      "changed_within_1pct_of_cut": 1.0,
+      "changed_median_rank": 0.9500024795626814
+    }
+  ]
 }

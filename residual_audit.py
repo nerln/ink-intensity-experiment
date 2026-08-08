@@ -13,8 +13,13 @@ Three candidate explanations, and the test that separates them:
   c. churn at the top-k selection boundary, i.e. an artefact of the metric
 
 The design of (a) and (b) came from an independent adversarial review of this
-repository, which asked whether the residual carries information. (c) is the one
-that turns out to explain it.
+repository, which asked whether the residual carries information. (c) is the one that
+survives the tests here.
+
+Run on both coefficient sets, because it matters which one. A later review pointed out
+that auditing only the in-sample residual is auditing the wrong number: the result the
+argument rests on is the held-out one, and its residual is larger (0.062 against 0.054),
+so it has more to explain, not less.
 """
 
 from __future__ import annotations
@@ -36,15 +41,34 @@ OUT = ROOT / "out"
 WIN_START, WIN_COUNT, REVERSE = 1, 30, False
 BLEND = "hann"
 Q = 0.05
+
+# (label, slope, intercept). The first is fitted on these renders; the second on five volume
+# chunks that never touch this ROI, and is the one the causal claim actually rests on.
+COEFFS = [
+    ("in-sample (render fit)", 0.6165, 104.02),
+    ("held out (volume chunks)", 0.6154, 104.32),
+]
 CLIP = 200  # the pipeline's absolute clip: differences above it never reach the model
 
 
-def main() -> None:
-    inkA = np.load(OUT / f"ts_{BLEND}_A.npy")
-    inkBm = np.load(OUT / f"ts_{BLEND}_Bmap.npy")
-    A = window(np.load(R / "render_131838.npy"), WIN_START, WIN_COUNT, REVERSE)
-    B = window(np.load(R / "render_131839.npy"), WIN_START, WIN_COUNT, REVERSE)
-    Bm = np.clip(np.rint(B.astype(np.float64) * 0.6165 + 104.02), 0, 255).astype(np.uint8)
+def _ink_for(B: np.ndarray, slope: float, intercept: float, cache: Path) -> np.ndarray:
+    """The prediction on remap(B). Cached, because each one is a full inference pass."""
+    if cache.exists():
+        return np.load(cache)
+    from infer import InkEngine
+
+    Bm = np.clip(np.rint(B.astype(np.float64) * slope + intercept), 0, 255).astype(np.uint8)
+    ink = InkEngine(model_kind="timesformer", num_frames=WIN_COUNT, stride=16,
+                    batch_size=1, blend=BLEND).predict(Bm)
+    np.save(cache, ink)
+    return ink
+
+
+def audit(label: str, slope: float, intercept: float, inkA, A, B) -> dict:
+    tag = f"{slope:.4f}_{intercept:.2f}".replace(".", "p")
+    inkBm = _ink_for(B, slope, intercept, OUT / f"ts_{BLEND}_Bmap_{tag}.npy")
+    Bm = np.clip(np.rint(B.astype(np.float64) * slope + intercept), 0, 255).astype(np.uint8)
+    print(f"\n{'='*70}\n=== {label}:  A = {slope}*B + {intercept} ===")
 
     a, m = inkA.ravel(), inkBm.ravel()
     n = a.size
@@ -91,11 +115,11 @@ def main() -> None:
           f"5-95% [{np.quantile(rank_a[changed], .05):.4f}, {np.quantile(rank_a[changed], .95):.4f}]")
     print(f"    {100*within1:.1f}% of them are within one percentile point of the cut "
           f"(median distance {np.median(dist):.4f})")
-    print(f"\n    The residual is where the ranking is a coin toss, not where the maps disagree.")
+    print("\n    Every changed pixel sits at the cut. That is consistent with threshold churn\n"
+          "    and rules out the two localisations tested above; it does not prove a cause.")
 
-    OUT.mkdir(exist_ok=True)
-    (OUT / "residual_audit.json").write_text(json.dumps({
-        "blend": BLEND, "q": Q, "delta": 1 - iou, "k": k,
+    return {
+        "label": label, "slope": slope, "intercept": intercept,
         "changed_pixels": int(changed.sum()),
         "identical_fraction_of_selection": 1 - changed.sum() / (2 * k),
         "lost_columns_fraction": float(lost.mean()),
@@ -104,7 +128,19 @@ def main() -> None:
         "spearman_input_vs_output_residual": rho,
         "changed_within_1pct_of_cut": within1,
         "changed_median_rank": float(np.median(rank_a[changed])),
-    }, indent=2))
+    }
+
+
+def main() -> None:
+    inkA = np.load(OUT / f"ts_{BLEND}_A.npy")
+    A = window(np.load(R / "render_131838.npy"), WIN_START, WIN_COUNT, REVERSE)
+    B = window(np.load(R / "render_131839.npy"), WIN_START, WIN_COUNT, REVERSE)
+
+    rows = [audit(lbl, m, c, inkA, A, B) for lbl, m, c in COEFFS]
+
+    OUT.mkdir(exist_ok=True)
+    (OUT / "residual_audit.json").write_text(json.dumps(
+        {"blend": BLEND, "q": Q, "runs": rows}, indent=2))
     print(f"\nwritten: {OUT / 'residual_audit.json'}")
 
 
