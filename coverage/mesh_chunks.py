@@ -1,5 +1,3 @@
-from __future__ import annotations
-from pathlib import Path
 """Which chunks a segment's rendered surface crosses, and which of them are missing in B.
 
 The surface has thickness: the render samples along the normal for ~261 um, that is ~33
@@ -8,7 +6,9 @@ from the tifxyz position field.
 
 Usage: mesh_chunks.py <tifxyz dir> [--dens N] [--out prefix]
 """
+from __future__ import annotations
 
+from pathlib import Path
 import argparse
 import json
 import sys
@@ -16,9 +16,6 @@ import sys
 import numpy as np
 import tifffile
 
-_HERE = str(Path(__file__).resolve().parent)
-_REPO = str(Path(__file__).resolve().parent.parent)
-_INK = str(Path(__file__).resolve().parent.parent.parent / "inkfloor")
 
 
 CH = 128
@@ -92,6 +89,10 @@ def chunk_lin(x, y, z):
     lin = (zi * NY + yi) * NX + xi
     return np.where(ok, lin, -1)
 
+
+_HERE = str(Path(__file__).resolve().parent)
+_REPO = str(Path(__file__).resolve().parent.parent)
+_INK = str(Path(__file__).resolve().parent.parent.parent / "inkfloor")
 
 def main():
     ap = argparse.ArgumentParser()

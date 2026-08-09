@@ -1,5 +1,3 @@
-from __future__ import annotations
-from pathlib import Path
 """2D mask (671x747) for the experiment's segment, at the mesh's native resolution.
 
 Fields saved in segment_mask.npz:
@@ -10,17 +8,20 @@ Fields saved in segment_mask.npz:
   margin_chunk int16  Chebyshev distance, in 128-voxel chunks, from the point's central chunk
                       to the nearest chunk present in A and absent in B (-1 if not valid)
 """
+from __future__ import annotations
 
+from pathlib import Path
 import sys
 
 import numpy as np
 
-sys.path.insert(0, f"{_REPO}/coverage")
-from mesh_chunks import CH, NX, NY, NZ, chunk_lin, load_mesh, normals  # noqa: E402
-
 _HERE = str(Path(__file__).resolve().parent)
 _REPO = str(Path(__file__).resolve().parent.parent)
 _INK = str(Path(__file__).resolve().parent.parent.parent / "inkfloor")
+
+sys.path.insert(0, f"{_REPO}/coverage")
+from mesh_chunks import CH, NX, NY, NZ, chunk_lin, load_mesh, normals  # noqa: E402
+
 
 
 SEG = (f"{_INK}/cache/PHerc0172/segments/"

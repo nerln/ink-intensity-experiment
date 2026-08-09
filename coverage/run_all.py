@@ -1,23 +1,24 @@
-from __future__ import annotations
-from pathlib import Path
 """Every published PHerc0172 segment against the coverage of the two derivations.
 
 For each segment: how many chunks the thick surface touches (33 slices along the normal),
 how many of those are missing in B, and how deep inside the shell stored by A the surface
 pushes.
 """
+from __future__ import annotations
 
+from pathlib import Path
 import json
 import sys
 
 import numpy as np
 
-sys.path.insert(0, f"{_REPO}/coverage")
-from mesh_chunks import NX, NY, NZ, chunk_lin, densify, load_mesh, normals  # noqa: E402
-
 _HERE = str(Path(__file__).resolve().parent)
 _REPO = str(Path(__file__).resolve().parent.parent)
 _INK = str(Path(__file__).resolve().parent.parent.parent / "inkfloor")
+
+sys.path.insert(0, f"{_REPO}/coverage")
+from mesh_chunks import NX, NY, NZ, chunk_lin, densify, load_mesh, normals  # noqa: E402
+
 
 
 HALF = 16

@@ -1,24 +1,25 @@
-from __future__ import annotations
-from pathlib import Path
 """List, via an S3 LIST, every chunk stored at level 0 of the two derivations.
 
 It does not probe: the LIST returns the EXACT and complete coverage, not a sample.
 Output: coverage.npz with two boolean bitmaps on the chunk grid (nz, ny, nx)
 and the per-chunk size sums (useful to tell full chunks from stubs).
 """
+from __future__ import annotations
 
+from pathlib import Path
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
 
-sys.path.insert(0, _INK)
-from inkfloor import cache  # noqa: E402
-
 _HERE = str(Path(__file__).resolve().parent)
 _REPO = str(Path(__file__).resolve().parent.parent)
 _INK = str(Path(__file__).resolve().parent.parent.parent / "inkfloor")
+
+sys.path.insert(0, _INK)
+from inkfloor import cache  # noqa: E402
+
 
 
 VOL_A = "PHerc0172/volumes/20241024131838-7.910um-53keV-masked.zarr/0"
