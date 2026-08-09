@@ -1,0 +1,33 @@
+{
+  "checkpoint": "scrollprize/PHerc.1667-iteration-0",
+  "pass_mark_iou5": 0.285,
+  "chance_iou5": 0.025641025641025644,
+  "best": {
+    "start": 0,
+    "reverse": false,
+    "iou_5": 0.08094511566533338
+  },
+  "sweep": [
+    {
+      "start": 0,
+      "reverse": false,
+      "iou_5": 0.08094511566533338
+    },
+    {
+      "start": 0,
+      "reverse": true,
+      "iou_5": 0.0
+    },
+    {
+      "start": 1,
+      "reverse": false,
+      "iou_5": 0.0306270886573619
+    },
+    {
+      "start": 1,
+      "reverse": true,
+      "iou_5": 0.0
+    }
+  ],
+  "passed": false
+}

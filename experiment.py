@@ -7,14 +7,14 @@ dello stesso scan e' causata dalla rimappatura affine degli 8 bit?
 Tre bracci:
   1. STESSO checkpoint sui due render -> Delta osservato
   2. STESSO checkpoint su B rimappato su A -> se Delta collassa, e' l'intensita'
-  3. controlli: motore contro se stesso (deve dare 0), e il pavimento imposto
-     dai voxel che B ha perso e che nessuna rimappatura lineare recupera
+  3. controls: the engine against itself (must give 0), and the floor imposed by the
+     voxels B lost, which no linear remap recovers
 
 Convenzioni: il render a 63 slice e' un sovrainsieme delle due finestre
 candidate, quindi [0:62] = -31..+30 e [1:63] = -30..+31. reverse e' [::-1].
 Le quattro combinazioni si scelgono confrontando con la mappa PUBBLICATA per
-131838, sapendo che viene da un'altra famiglia di modelli: cerchiamo quale
-convenzione batte le altre, non un accordo alto in assoluto.
+131838, knowing it comes from a different model family: we are looking for which
+convention beats the others, not for high agreement in absolute terms.
 """
 from __future__ import annotations
 
@@ -39,18 +39,18 @@ OUT.mkdir(exist_ok=True)
 # La ROI nel canvas completo, dal README del renderer.
 CROP_X, CROP_Y, CROP_W, CROP_H = 7168, 6400, 512, 512
 
-# Relazione misurata sui render, voxel per voxel: A = slope*B + intercept
+# Relation measured on the renders, voxel by voxel: A = slope*B + intercept
 SLOPE, INTERCEPT = 0.6165, 104.02
 
 
 def window(d63: np.ndarray, start: int, reverse: bool) -> np.ndarray:
-    """Estrae 62 slice dal render a 63, in (H, W, D)."""
+    """Take 62 slices out of the 63-slice render, as (H, W, D)."""
     w = d63[:, :, start : start + 62]
     return w[:, :, ::-1].copy() if reverse else w.copy()
 
 
 def remap_b_to_a(b: np.ndarray) -> np.ndarray:
-    """Applica la relazione affine misurata, con saturazione a uint8."""
+    """Apply the measured affine relation, saturating to uint8 as the data is."""
     x = b.astype(np.float64) * SLOPE + INTERCEPT
     return np.clip(np.rint(x), 0, 255).astype(np.uint8)
 
@@ -70,7 +70,7 @@ def main() -> None:
     engine = InkEngine()
     print(f"motore pronto\n")
 
-    # --- scelta della convenzione, contro la mappa di inchiostro PUBBLICATA ---
+    # --- choosing the convention, against the PUBLISHED ink map ---
     # La predizione pubblicata per 131838 sta nel .tif intero: ritaglio la ROI.
     import tifffile
 
@@ -83,7 +83,7 @@ def main() -> None:
     print(f"mappa di inchiostro pubblicata sulla ROI: {pub_ink.shape}, "
           f"non-zero {np.count_nonzero(pub_ink)/pub_ink.size:.3f}\n")
 
-    print("=== scelta della convenzione (su A, contro la mappa pubblicata) ===")
+    print("=== choosing the convention (on A, against the published map) ===")
     print(f"  {'finestra':<12} {'reverse':<8} {'rho con pubblicata':>20}")
     best, best_rho = None, -2.0
     conv_rows = []
@@ -98,9 +98,9 @@ def main() -> None:
             best, best_rho = (start, rev), rho
     start, rev = best
     spread = best_rho - min(r["rho"] for r in conv_rows)
-    print(f"\n  scelta: finestra [{start}:{start+62}], reverse={rev}, rho={best_rho:.4f}")
+    print(f"\n  chosen: window [{start}:{start+62}], reverse={rev}, rho={best_rho:.4f}")
     print(f"  distacco dalla peggiore: {spread:.4f}"
-          f"  -> {'la convenzione e decisa dai dati' if spread > 0.05 else 'NON decisiva, vedi nota'}\n")
+          f"  -> {'the data decide the convention' if spread > 0.05 else 'NOT decisive, see the note'}\n")
 
     # --- i tre bracci ---
     A = window(A63, start, rev)
@@ -111,7 +111,7 @@ def main() -> None:
     inkA = engine.predict(A)
     inkB = engine.predict(B)
     inkBm = engine.predict(Bmap)
-    inkA2 = engine.predict(A)  # controllo di determinismo
+    inkA2 = engine.predict(A)  # determinism control
 
     valid = np.ones(inkA.shape, bool)
     qs = (0.01, 0.05, 0.20)
@@ -119,10 +119,10 @@ def main() -> None:
     print(f"\n  {'confronto':<44} " + " ".join(f"{'D@'+str(int(q*100))+'%':>8}" for q in qs))
     rows = []
     for label, x, y in [
-        ("controllo: A contro A (deve essere 0)", inkA, inkA2),
-        ("BRACCIO 1: A contro B (osservato)", inkA, inkB),
-        ("BRACCIO 2: A contro B rimappato", inkA, inkBm),
-        ("riferimento: B contro B rimappato", inkB, inkBm),
+        ("control: A vs A (must be 0)", inkA, inkA2),
+        ("ARM 1: A vs B (observed)", inkA, inkB),
+        ("ARM 2: A vs remap(B)", inkA, inkBm),
+        ("reference: B vs remap(B)", inkB, inkBm),
     ]:
         ds = [delta(x, y, valid, q) for q in qs]
         rows.append({"label": label, "deltas": ds,
@@ -139,10 +139,10 @@ def main() -> None:
     if d_obs > 0:
         print(f"  riduzione                              : {(d_obs-d_rem)/d_obs:+.1%}")
 
-    # pavimento imposto dall'informazione persa
+    # the floor imposed by the lost information
     lost = (B == 0) & (A > 0)
     print(f"\n  voxel persi da B (zero dove A ha dato): {lost.sum():,} "
-          f"({lost.mean():.4%}) -> pavimento non recuperabile per costruzione")
+          f"({lost.mean():.4%}) -> a floor no linear remap can recover, by construction")
 
     json.dump({"convention": {"start": start, "reverse": rev, "rho": best_rho,
                               "spread": float(spread), "all": conv_rows},

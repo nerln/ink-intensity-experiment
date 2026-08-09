@@ -29,7 +29,7 @@
  },
  "rows": [
   {
-   "label": "controllo: A contro A (deve essere 0)",
+   "label": "control: A vs A (must be 0)",
    "deltas": [
     0.0,
     0.0,
@@ -38,7 +38,7 @@
    "spearman": 0.9999999999999998
   },
   {
-   "label": "BRACCIO 1: A contro B (osservato)",
+   "label": "ARM 1: A vs B (observed)",
    "deltas": [
     1.0,
     0.7215177526336325,
@@ -47,7 +47,7 @@
    "spearman": 0.2715371578393933
   },
   {
-   "label": "BRACCIO 2: A contro B rimappato",
+   "label": "ARM 2: A vs remap(B)",
    "deltas": [
     0.030803906836964656,
     0.023375056552556228,
@@ -56,7 +56,7 @@
    "spearman": 0.9993203470355223
   },
   {
-   "label": "riferimento: B contro B rimappato",
+   "label": "reference: B vs remap(B)",
    "deltas": [
     1.0,
     0.7146219476316564,
