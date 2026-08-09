@@ -1,10 +1,10 @@
 from __future__ import annotations
 from pathlib import Path
-"""Elenca via LIST S3 tutti i chunk memorizzati al livello 0 delle due derivazioni.
+"""List, via an S3 LIST, every chunk stored at level 0 of the two derivations.
 
-Non sonda: la LIST restituisce la copertura ESATTA e completa, non un campione.
-Output: coverage.npz con due bitmap booleane sulla griglia di chunk (nz, ny, nx)
-e le somme delle dimensioni per chunk (utile per distinguere chunk pieni da tappi).
+It does not probe: the LIST returns the EXACT and complete coverage, not a sample.
+Output: coverage.npz with two boolean bitmaps on the chunk grid (nz, ny, nx)
+and the per-chunk size sums (useful to tell full chunks from stubs).
 """
 
 import sys

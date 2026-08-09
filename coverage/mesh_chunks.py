@@ -1,12 +1,12 @@
 from __future__ import annotations
 from pathlib import Path
-"""Quali chunk attraversa la superficie renderizzata di un segmento, e quali mancano in B.
+"""Which chunks a segment's rendered surface crosses, and which of them are missing in B.
 
-La superficie ha spessore: il render campiona lungo la normale per ~261 um, cioe' ~33
-slice a 7.91 um/voxel. Qui si campiona t = -16..+16 voxel lungo la normale stimata dal
-campo di posizioni della tifxyz.
+The surface has thickness: the render samples along the normal for ~261 um, that is ~33
+slices at 7.91 um/voxel. Here we sample t = -16..+16 voxels along the normal estimated
+from the tifxyz position field.
 
-Uso: mesh_chunks.py <dir tifxyz> [--dens N] [--out prefix]
+Usage: mesh_chunks.py <tifxyz dir> [--dens N] [--out prefix]
 """
 
 import argparse
@@ -25,7 +25,7 @@ CH = 128
 SHAPE_A = (21000, 6700, 9100)
 SHAPE_B = (20820, 6700, 9100)
 NZ, NY, NX = 165, 53, 72
-HALF = 16          # t = -16..+16  ->  33 campioni, 261 um a 7.91 um
+HALF = 16          # t = -16..+16  ->  33 samples, 261 um at 7.91 um
 
 
 def load_mesh(d: str):
@@ -37,10 +37,10 @@ def load_mesh(d: str):
 
 
 def densify(a: np.ndarray, valid: np.ndarray, k: int):
-    """Interpolazione bilineare del campo di posizioni, fattore k per asse.
+    """Bilinear interpolation of the position field, factor k per axis.
 
-    I punti invalidi restano invalidi e contaminano i loro 4 vicini: meglio perdere una
-    frangia di un pixel che inventare coordinate sul bordo del segmento.
+    Invalid points stay invalid and contaminate their 4 neighbours: better to lose a
+    one-pixel fringe than to invent coordinates at the edge of the segment.
     """
     if k == 1:
         return a, valid
@@ -63,10 +63,10 @@ def densify(a: np.ndarray, valid: np.ndarray, k: int):
 
 
 def normals(x, y, z, valid):
-    """Normale unitaria per punto, dal prodotto vettoriale delle derivate di griglia.
+    """Unit normal per point, from the cross product of the grid derivatives.
 
-    Dove una derivata non e' calcolabile (bordo del segmento, buchi) la normale e' NaN e
-    il chiamante campiona solo il punto centrale.
+    Where a derivative is not computable (segment edge, holes) the normal is NaN and the
+    caller samples only the central point.
     """
     xf = np.where(valid, x, np.nan)
     yf = np.where(valid, y, np.nan)
@@ -84,7 +84,7 @@ def normals(x, y, z, valid):
 
 
 def chunk_lin(x, y, z):
-    """Indice lineare del chunk (z,y,x) sulla griglia comune; -1 fuori dall'array A."""
+    """Linear index of the chunk (z,y,x) on the common grid; -1 outside array A."""
     xi = np.floor(x / CH).astype(np.int64)
     yi = np.floor(y / CH).astype(np.int64)
     zi = np.floor(z / CH).astype(np.int64)
@@ -114,10 +114,10 @@ def main():
     H, W = xd.shape
 
     ts = np.arange(-HALF, HALF + 1, dtype=np.float64)
-    # per punto: unione dei chunk toccati dai 33 campioni lungo la normale
+    # per point: the union of the chunks touched by the 33 samples along the normal
     touched = np.zeros(NZ * NY * NX, dtype=bool)
-    p_any_a = np.zeros((H, W), dtype=bool)        # tocca almeno un chunk presente in A
-    p_missB = np.zeros((H, W), dtype=bool)        # tocca un chunk presente in A e assente in B
+    p_any_a = np.zeros((H, W), dtype=bool)        # touches at least one chunk present in A
+    p_missB = np.zeros((H, W), dtype=bool)        # touches a chunk present in A, absent in B
     p_nsamp_missB = np.zeros((H, W), dtype=np.int16)
 
     block = max(1, 2_000_000 // (W * ts.size))

@@ -1,10 +1,10 @@
 from __future__ import annotations
 from pathlib import Path
-"""Tutti i segmenti pubblicati di PHerc0172 contro la copertura delle due derivazioni.
+"""Every published PHerc0172 segment against the coverage of the two derivations.
 
-Per ogni segmento: quanti chunk tocca la superficie spessa (33 slice lungo la normale),
-quanti di quelli mancano in B, e a che profondita' dentro il guscio memorizzato da A si
-spinge la superficie.
+For each segment: how many chunks the thick surface touches (33 slices along the normal),
+how many of those are missing in B, and how deep inside the shell stored by A the surface
+pushes.
 """
 
 import json
@@ -85,8 +85,8 @@ def main():
     tot_t = sum(r.get("touched", 0) for r in out)
     tot_m = sum(r.get("only_A", 0) for r in out)
     tot_n = sum(r.get("neither", 0) for r in out)
-    print(f"\nTOTALE: {len(out)} segmenti, {tot_t} chunk toccati (con ripetizioni), "
-          f"{tot_m} presenti in A e assenti in B, {tot_n} assenti in entrambi")
+    print(f"\nTOTAL: {len(out)} segments, {tot_t} chunks touched (with repetitions), "
+          f"{tot_m} present in A and absent in B, {tot_n} absent in both")
 
 
 if __name__ == "__main__":

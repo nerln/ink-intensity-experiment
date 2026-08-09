@@ -1,14 +1,14 @@
 from __future__ import annotations
 from pathlib import Path
-"""Maschera 2D (671x747) per il segmento dell'esperimento, alla risoluzione nativa della mesh.
+"""2D mask (671x747) for the experiment's segment, at the mesh's native resolution.
 
-Campi salvati in segment_mask.npz:
-  valid        bool   punto della tifxyz con coordinate valide (x,y,z >= 0)
-  ok_both      bool   tutta la colonna di render (33 campioni, +-16 voxel lungo la normale)
-                      cade in chunk presenti in ENTRAMBE le derivazioni
-  hit_missing  bool   la colonna tocca almeno un chunk presente in 131838 e assente in 131839
-  margin_chunk int16  distanza di Chebyshev, in chunk da 128 voxel, dal chunk centrale del
-                      punto al piu' vicino chunk presente in A e assente in B (-1 se non valido)
+Fields saved in segment_mask.npz:
+  valid        bool   tifxyz point with valid coordinates (x,y,z >= 0)
+  ok_both      bool   the whole render column (33 samples, +-16 voxels along the normal)
+                      falls in chunks present in BOTH derivations
+  hit_missing  bool   the column touches at least one chunk present in 131838, absent in 131839
+  margin_chunk int16  Chebyshev distance, in 128-voxel chunks, from the point's central chunk
+                      to the nearest chunk present in A and absent in B (-1 if not valid)
 """
 
 import sys
@@ -50,7 +50,7 @@ def main():
     hit = (pres_a & ~gb[li]).any(axis=2)
     ok = valid & pres_a.any(axis=2) & ~hit
 
-    # margine: distanza in chunk dal chunk centrale al piu' vicino chunk mancante in B
+    # margin: distance in chunks from the central chunk to the nearest chunk missing in B
     cz = np.floor(z / CH).astype(np.int32).clip(0, NZ - 1)
     cy = np.floor(y / CH).astype(np.int32).clip(0, NY - 1)
     cx = np.floor(x / CH).astype(np.int32).clip(0, NX - 1)
@@ -71,9 +71,9 @@ def main():
     )
     m = margin[valid]
     print(f"shape {H}x{W}  valid={int(valid.sum())}  ok_both={int(ok.sum())}  hit_missing={int(hit.sum())}")
-    print(f"margine (chunk) sui punti validi: min={m.min()} p1={np.percentile(m,1):.0f} "
-          f"mediana={np.median(m):.0f} max={m.max()}")
-    print("punti con margine <=1 chunk:", int((m <= 1).sum()),
+    print(f"margin (chunks) over the valid points: min={m.min()} p1={np.percentile(m,1):.0f} "
+          f"median={np.median(m):.0f} max={m.max()}")
+    print("points with margin <=1 chunk:", int((m <= 1).sum()),
           " <=2:", int((m <= 2).sum()), " <=3:", int((m <= 3).sum()))
 
 

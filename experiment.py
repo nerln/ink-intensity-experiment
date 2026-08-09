@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""L'esperimento causale per ScrollPrize/villa#1372.
+"""The causal experiment for ScrollPrize/villa#1372.
 
-Domanda: la differenza fra le mappe di inchiostro prodotte su due derivazioni
-dello stesso scan e' causata dalla rimappatura affine degli 8 bit?
+Question: is the difference between the ink maps produced on two derivations
+of the same scan caused by the affine remap of the 8 bits?
 
-Tre bracci:
-  1. STESSO checkpoint sui due render -> Delta osservato
-  2. STESSO checkpoint su B rimappato su A -> se Delta collassa, e' l'intensita'
+Three arms:
+  1. SAME checkpoint on the two renders -> observed Delta
+  2. SAME checkpoint on B remapped onto A -> if Delta collapses, it is the intensity
   3. controls: the engine against itself (must give 0), and the floor imposed by the
      voxels B lost, which no linear remap recovers
 
-Convenzioni: il render a 63 slice e' un sovrainsieme delle due finestre
-candidate, quindi [0:62] = -31..+30 e [1:63] = -30..+31. reverse e' [::-1].
-Le quattro combinazioni si scelgono confrontando con la mappa PUBBLICATA per
+Conventions: the 63-slice render is a superset of the two candidate windows,
+so [0:62] = -31..+30 and [1:63] = -30..+31. reverse is [::-1].
+The four combinations are chosen by comparing against the PUBLISHED map for
 131838, knowing it comes from a different model family: we are looking for which
 convention beats the others, not for high agreement in absolute terms.
 """
@@ -36,7 +36,7 @@ R = ROOT / "renders"
 OUT = ROOT / "out"
 OUT.mkdir(exist_ok=True)
 
-# La ROI nel canvas completo, dal README del renderer.
+# The ROI in the full canvas, from the renderer's README.
 CROP_X, CROP_Y, CROP_W, CROP_H = 7168, 6400, 512, 512
 
 # Relation measured on the renders, voxel by voxel: A = slope*B + intercept
@@ -64,14 +64,14 @@ def main() -> None:
     B63 = np.load(R / "render_131839_hwd63.npy")
     print(f"render A {A63.shape} {A63.dtype}   render B {B63.shape} {B63.dtype}")
 
-    pub_full = np.load(R / "published_131838_roi.npy")  # (33,512,512), gia' ROI
-    print(f"pubblicato (33 slice) {pub_full.shape}")
+    pub_full = np.load(R / "published_131838_roi.npy")  # (33,512,512), already the ROI
+    print(f"published (33 slices) {pub_full.shape}")
 
     engine = InkEngine()
-    print(f"motore pronto\n")
+    print(f"engine ready\n")
 
     # --- choosing the convention, against the PUBLISHED ink map ---
-    # La predizione pubblicata per 131838 sta nel .tif intero: ritaglio la ROI.
+    # The published prediction for 131838 is in the whole .tif: crop the ROI out of it.
     import tifffile
 
     pred_key = next(
@@ -80,11 +80,11 @@ def main() -> None:
     )
     pred_full = tifffile.imread(pred_key)
     pub_ink = pred_full[CROP_Y : CROP_Y + CROP_H, CROP_X : CROP_X + CROP_W].astype(np.float32)
-    print(f"mappa di inchiostro pubblicata sulla ROI: {pub_ink.shape}, "
+    print(f"published ink map on the ROI: {pub_ink.shape}, "
           f"non-zero {np.count_nonzero(pub_ink)/pub_ink.size:.3f}\n")
 
     print("=== choosing the convention (on A, against the published map) ===")
-    print(f"  {'finestra':<12} {'reverse':<8} {'rho con pubblicata':>20}")
+    print(f"  {'window':<12} {'reverse':<8} {'rho vs published':>20}")
     best, best_rho = None, -2.0
     conv_rows = []
     for start, rev in itertools.product((0, 1), (False, True)):
@@ -99,15 +99,15 @@ def main() -> None:
     start, rev = best
     spread = best_rho - min(r["rho"] for r in conv_rows)
     print(f"\n  chosen: window [{start}:{start+62}], reverse={rev}, rho={best_rho:.4f}")
-    print(f"  distacco dalla peggiore: {spread:.4f}"
+    print(f"  gap from the worst: {spread:.4f}"
           f"  -> {'the data decide the convention' if spread > 0.05 else 'NOT decisive, see the note'}\n")
 
-    # --- i tre bracci ---
+    # --- the three arms ---
     A = window(A63, start, rev)
     B = window(B63, start, rev)
     Bmap = remap_b_to_a(B)
 
-    print("=== inferenza ===")
+    print("=== inference ===")
     inkA = engine.predict(A)
     inkB = engine.predict(B)
     inkBm = engine.predict(Bmap)
@@ -116,7 +116,7 @@ def main() -> None:
     valid = np.ones(inkA.shape, bool)
     qs = (0.01, 0.05, 0.20)
 
-    print(f"\n  {'confronto':<44} " + " ".join(f"{'D@'+str(int(q*100))+'%':>8}" for q in qs))
+    print(f"\n  {'comparison':<44} " + " ".join(f"{'D@'+str(int(q*100))+'%':>8}" for q in qs))
     rows = []
     for label, x, y in [
         ("control: A vs A (must be 0)", inkA, inkA2),
@@ -133,15 +133,15 @@ def main() -> None:
     d_rem = rows[2]["deltas"][1]
     print(f"\n  rho: " + ", ".join(f"{r['label'].split(':')[0]}={r['spearman']:.3f}" for r in rows))
 
-    print(f"\n=== VERDETTO (a q=5%) ===")
-    print(f"  Delta osservato fra le due derivazioni : {d_obs:.3f}")
-    print(f"  Delta dopo la rimappatura affine       : {d_rem:.3f}")
+    print(f"\n=== VERDICT (at q=5%) ===")
+    print(f"  Delta observed between the two derivations : {d_obs:.3f}")
+    print(f"  Delta after the affine remap               : {d_rem:.3f}")
     if d_obs > 0:
-        print(f"  riduzione                              : {(d_obs-d_rem)/d_obs:+.1%}")
+        print(f"  reduction                                  : {(d_obs-d_rem)/d_obs:+.1%}")
 
     # the floor imposed by the lost information
     lost = (B == 0) & (A > 0)
-    print(f"\n  voxel persi da B (zero dove A ha dato): {lost.sum():,} "
+    print(f"\n  voxels lost by B (zero where A has a value): {lost.sum():,} "
           f"({lost.mean():.4%}) -> a floor no linear remap can recover, by construction")
 
     json.dump({"convention": {"start": start, "reverse": rev, "rho": best_rho,
@@ -151,7 +151,7 @@ def main() -> None:
                "remap": {"slope": SLOPE, "intercept": INTERCEPT}},
               open(OUT / "experiment.json", "w"), indent=1)
     np.savez_compressed(OUT / "ink_maps.npz", A=inkA, B=inkB, Bmap=inkBm)
-    print(f"\n  salvato in {OUT}")
+    print(f"\n  saved in {OUT}")
 
 
 if __name__ == "__main__":
