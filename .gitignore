@@ -16,3 +16,4 @@ __pycache__/
 .DS_Store
 comment-*.md
 *.log
+pr-blend.md

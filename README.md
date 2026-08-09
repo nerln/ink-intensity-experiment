@@ -42,6 +42,28 @@ does the work alone, and the offset alone makes the disagreement worse, so this 
 that makes the inputs look more alike". Those independent coefficients also carry 99.31% of the
 region's voxels to within one 8-bit level.
 
+## Checking the result without running anything
+
+The ink maps are committed, so every figure above can be recomputed from this repository with
+numpy alone: no torch, no checkpoint, no renders, no network.
+
+```python
+import numpy as np
+a  = np.load("out/ts_hann_A.npy")      # the model on derivation A
+b  = np.load("out/ts_hann_B.npy")      # the same model on derivation B
+bm = np.load("out/ts_hann_Bmap.npy")   # and on B with A's intensity scale
+
+def delta(x, y, q=0.05):
+    k = round(q * x.size)
+    sx = x.ravel() >= np.partition(x.ravel(), -k)[-k]
+    sy = y.ravel() >= np.partition(y.ravel(), -k)[-k]
+    return 1 - (sx & sy).sum() / (sx | sy).sum()
+
+print(delta(a, a), delta(a, b), delta(a, bm))   # 0.000  0.757  0.044
+```
+
+About five seconds. Everything below is how those three arrays were produced.
+
 ## The validity gate
 
 The experiment refuses to print its causal arms until it has reproduced a *published* prediction
@@ -112,7 +134,7 @@ experiment_timesformer.py   three arms, the checkpoint that produced the publish
 infer/                      standalone loaders and tiling engine; rejects wrong input shapes
 coverage/                   exact chunk-coverage enumeration and the per-segment mask
 tools/                      render comparison helpers
-out/                        JSON reports (committed); ink maps (not)
+out/                        JSON reports and the ink maps themselves, both committed
 ```
 
 Weights, renders and the S3 cache are gitignored: 1.7 GB, 136 MB and 27 MB respectively, all
