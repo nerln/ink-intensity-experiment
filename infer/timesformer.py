@@ -14,10 +14,10 @@ the fly for whatever sequence length arrives. So:
 * the **number of z-layers** (frames) is not encoded in the weights, and
 * the checkpoint loads identically for any ``num_frames``.
 
-The layer window is a pure runtime parameter (``START_LAYER``/``END_LAYER`` in
-``optimized_inference/entrypoint.py``, with no default in the repo), so it
-cannot be recovered from the checkpoint or the code. It has to be established
-empirically against a published prediction. See ``calibrate.py``.
+The layer window is a runtime parameter and cannot be recovered from the
+checkpoint. The reference inference source records 26 frames starting at legacy
+layer 17; ``calibrate.py`` maps that to the local render and checks it against a
+published prediction.
 
 What the weights DO pin
 -----------------------

@@ -1,0 +1,10 @@
+# Runtime constraints mirror pyproject.toml. The TimeSformer version is exact because its
+# module structure is part of the checkpoint compatibility contract.
+numpy>=1.26,<3
+scipy>=1.11,<2
+torch>=2.6,<3
+safetensors>=0.4,<1
+timesformer-pytorch==0.4.1
+tifffile>=2024.1,<2027
+imagecodecs>=2024.1,<2027
+huggingface-hub>=0.24,<2

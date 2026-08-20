@@ -6,8 +6,9 @@ preprocessing step, how much of that difference is still in front of the network
 
 The old ink-detection path clipped to an absolute 200 and divided by a constant. An absolute
 clip cannot absorb an affine change of intensity, so the difference passes straight through.
-The path that replaced it normalises each crop by its own median and MAD, and an affine change
-is exactly what a median-and-scale normalisation removes.
+The current `vesuvius.ink_detection` default normalises each crop by its own median and MAD,
+and an affine change is exactly what a median-and-scale normalisation removes. This script is
+an input-level comparison only; it does not run or validate the current model end to end.
 
 Run it on the two renders in `renders/` and it prints the gap under each. The figure in
 `figures/normalization_gap.png` is the same measurement with pictures.
@@ -107,9 +108,9 @@ def main(argv: list[str] | None = None) -> int:
         normalise = villa_normalize
 
     paths = [
-        ("old: clip 200, /200  (inference_timesformer)", lambda c: np.clip(c, 0, 200) / 200.0),
-        ("old: clip 200, /255  (optimized_inference)", lambda c: np.clip(c, 0, 200) / 255.0),
-        ("new: robust_mad p1-p99  (ink_detection default)", lambda c: normalise(c.copy())),
+        ("legacy: clip 200, /200  (inference_timesformer)", lambda c: np.clip(c, 0, 200) / 200.0),
+        ("legacy: clip 200, /255  (optimized_inference)", lambda c: np.clip(c, 0, 200) / 255.0),
+        ("current: robust_mad p1-p99  (ink_detection default)", lambda c: normalise(c.copy())),
     ]
 
     pairs = list(zip(crops(volume_a), crops(volume_b)))

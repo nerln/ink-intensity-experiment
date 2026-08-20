@@ -10,8 +10,9 @@ uses: `inference_timesformer.py` defaults to start_idx=17 with in_chans=26 and
 builds range(17, 43), so the stack is legacy layers 17 through 42. On a 33-slice
 render centred on the surface (offsets -16..+16, legacy 16..48) that is local
 [1:27). `calibrate.py` scores it against the published map from this same
-checkpoint on this same derivation at IoU@5% = 0.449, against a pass mark of
-0.285 and chance 0.026, and it is the best of every window the sweep tries.
+checkpoint on this same derivation at IoU@5% = 0.449, against a relevance-gate
+mark of 0.285 and an iid reference of 0.026. This is partial agreement rather
+than identity, and `[1:27)` is the best of every window the sweep tries.
 
 An earlier version used [1:31) with 30 frames and scored 0.420. That window was
 chosen by a sweep that only tried the centred start for each frame count, so it
@@ -131,7 +132,7 @@ def main() -> None:
         if cal < PASS_MARK:
             raise SystemExit(
                 f"calibration failed for blend={blend}: IoU@5% {cal:.3f} < {PASS_MARK}. "
-                "This configuration does not reproduce the published map, so the arms "
+                "This configuration does not pass the published-map relevance gate, so the arms "
                 "below would not mean anything. Refusing to report them."
             )
         print(f"  means: A {inkA.mean():.3f}  B {inkB.mean():.3f}  remap(B) {inkBm.mean():.3f}")

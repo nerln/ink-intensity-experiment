@@ -1,0 +1,20 @@
+include README.md
+include LICENSE
+include ARTIFACTS.sha256
+include SOURCE_DATA.sha256
+include requirements.txt
+include requirements-dev.txt
+include requirements-ci.txt
+include calibrate.py
+include experiment_timesformer.py
+include fit_affine.py
+include normalization_gap.py
+include residual_audit.py
+include sweep_affine.py
+recursive-include docs *.md
+include out/ts_hann_A.npy
+include out/ts_hann_B.npy
+include out/ts_hann_Bmap_0p6154_104p32.npy
+include out/calibration.json
+include out/experiment_timesformer.json
+include out/sweep_affine.json

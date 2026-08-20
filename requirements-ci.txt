@@ -1,0 +1,3 @@
+# The artifact audit deliberately avoids torch, checkpoints, renders and network access.
+numpy>=1.26,<3
+pytest>=7.4,<10

@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "op6-causal"
+dynamic = ["version"]
+description = "Scoped causal intervention on legacy Vesuvius ink-detection preprocessing"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Eugenio Nerelli" }]
+dependencies = [
+  "numpy>=1.26,<3",
+  "scipy>=1.11,<2",
+  "torch>=2.6,<3",
+  "safetensors>=0.4,<1",
+  "timesformer-pytorch==0.4.1",
+  "tifffile>=2024.1,<2027",
+  "imagecodecs>=2024.1,<2027",
+  "huggingface-hub>=0.24,<2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4,<10"]
+
+[project.scripts]
+op6-calibrate = "calibrate:main"
+op6-experiment = "experiment_timesformer:main"
+op6-normalization-gap = "normalization_gap:main"
+
+[project.urls]
+Repository = "https://github.com/nerln/ink-intensity-experiment"
+Issues = "https://github.com/nerln/ink-intensity-experiment/issues"
+
+[tool.setuptools]
+packages = ["infer"]
+py-modules = [
+  "calibrate",
+  "experiment_timesformer",
+  "fit_affine",
+  "normalization_gap",
+  "residual_audit",
+  "sweep_affine",
+]
+
+[tool.setuptools.dynamic]
+version = { attr = "infer._version.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

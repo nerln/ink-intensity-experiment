@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Calibration gate for the causal experiment (villa#1372).
 
-Before any causal number is worth reporting, the pipeline has to be shown to
-reproduce a *published* prediction from the *same* checkpoint on the *same*
-derivation. That is the only end-to-end check that covers the render, the
-z-window convention, the preprocessing and the blending all at once.
+Before any causal number is worth reporting, the pipeline has to show substantial
+agreement with a *published* prediction from the *same* checkpoint on the *same*
+derivation. This is a partial-reproduction/relevance gate covering the render,
+z-window convention, preprocessing and blending; it is not an identity claim.
 
 Target: `scrollprize/timesformer_scroll5_july_retreat` produced the published
 map `...volume-20241024131838-20250713185324-timesformer_scroll5_july_retreat
@@ -12,9 +12,9 @@ map `...volume-20241024131838-20250713185324-timesformer_scroll5_july_retreat
 compare.
 
 The z-window is swept rather than assumed. The checkpoint's rotary position
-embeddings do not constrain the frame count, and `optimized_inference` takes
-START_LAYER/END_LAYER from the environment with no default recorded anywhere,
-so the convention has to be recovered from the data.
+embeddings do not constrain the frame count. The reference source independently
+records `start_idx=17` and `in_chans=26`, which maps to local `[1:27)`; the sweep
+checks that configuration against every admissible start for the tested counts.
 
 Pass mark: IoU@5% at or above ~0.285, which is the agreement between the two
 *published* maps (july vs november) on this same volume. Chance is 0.026.
@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import itertools
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -37,7 +38,7 @@ from infer import InkEngine  # noqa: E402
 R = ROOT / "renders"
 OUT = ROOT / "out"
 OUT.mkdir(exist_ok=True)
-DATA = ROOT.parent / "vesuvius-op6" / "data"
+DATA = Path(os.environ.get("OP6_PUBLISHED_DATA", ROOT / "data")).expanduser()
 
 # ROI position in the full segment canvas (from the renderer's README).
 CROP_X, CROP_Y, CROP_W, CROP_H = 7168, 6400, 512, 512
@@ -176,8 +177,8 @@ def main() -> None:
     print(f"  vs chance (0.026): {margin_over_chance:.1f}x")
     print(f"\n=== CALIBRATION {'PASSED' if passed else 'FAILED'} ===")
     if not passed:
-        print("  The pipeline does not reproduce the published map from the same")
-        print("  checkpoint on the same derivation. Causal numbers from this")
+        print("  The pipeline does not pass the published-map relevance gate for the")
+        print("  same checkpoint and derivation. Causal numbers from this")
         print("  configuration are not trustworthy. Do not report them.")
 
     (OUT / "calibration.json").write_text(

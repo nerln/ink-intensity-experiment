@@ -1,5 +1,6 @@
 # Model weights: 1.7 GB, fetched from Hugging Face on demand.
 weights/
+data/
 # Rendered surface volumes and cached S3 payload: regenerable, large.
 renders/
 cache/
